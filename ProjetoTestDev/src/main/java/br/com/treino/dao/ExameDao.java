@@ -23,9 +23,43 @@ public class ExameDao extends Dao {
 
 			pstm.execute();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isPacienteUnico(String paciente) {
+		int cod = 0;
+		String query = "SELECT COUNT(1) FROM exame WHERE LOWER(paciente) = LOWER(?);";
+		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(query)) {
+			pstm.setString(1, paciente);
+			ResultSet rst = pstm.executeQuery();
+			if (rst.next()) {
+				cod = rst.getInt(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		boolean resultado = cod == 0 ? true : false;
+		return resultado;
+	}
+
+	public boolean isPacienteUnico(int codAgendamento, String paciente) {
+		boolean resultado = true;
+		String query = "SELECT * FROM exame WHERE LOWER(paciente) = LOWER(?);";
+		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(query)) {
+			pstm.setString(1, paciente);
+			ResultSet rst = pstm.executeQuery();
+			if (rst.next()) {
+				int cod = rst.getInt("cod_agendamento");
+				if (cod != codAgendamento) {
+					resultado = false;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 
 	public List<Exame> listarExames() {
@@ -57,7 +91,6 @@ public class ExameDao extends Dao {
 				LocalDate exameData = rst.getObject("data_exame", LocalDate.class);
 				String obs = rst.getString("obersevacao_resultado");
 				exame = new Exame(cod, paciente, nomeExame, exameData, obs);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +102,11 @@ public class ExameDao extends Dao {
 		String sql = "DELETE FROM exame WHERE cod_agendamento = ?";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			pstm.setInt(1, codExame);
-			pstm.execute();
+
+			boolean isDeleted = pstm.execute();
+			if (!isDeleted)
+				throw new Exception("Não foi possível deletar o agendamento");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,12 +120,14 @@ public class ExameDao extends Dao {
 			pstm.setObject(3, exame.getDataExame());
 			pstm.setString(4, exame.getObservacaoResultado());
 			pstm.setInt(5, exame.getCodAgendamento());
-			pstm.execute();
-		} catch (SQLException e) {
+			boolean isUpdated = pstm.execute();
+			if (!isUpdated)
+				throw new Exception("Não foi possível deletar o agendamento");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<Exame> pesquisarExames(String parametro) {
 		List<Exame> exames = new ArrayList<>();
 		String query = "SELECT * FROM exame WHERE LOWER(paciente) LIKE LOWER(?) ORDER BY paciente";
@@ -106,5 +145,5 @@ public class ExameDao extends Dao {
 		}
 		return exames;
 	}
-	
+
 }

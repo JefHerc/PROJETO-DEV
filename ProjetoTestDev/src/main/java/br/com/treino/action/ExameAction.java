@@ -31,7 +31,6 @@ public class ExameAction extends ActionSupport {
 			exameBusiness.salvarAgendamento(exame);
 			return SUCCESS;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return INPUT;

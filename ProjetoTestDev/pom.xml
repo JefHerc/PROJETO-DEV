@@ -73,7 +73,7 @@
 				<version>9.4.7.v20170914</version>
 				<configuration>
 					<webApp>
-						<contextPath>/${build.finalName}</contextPath>
+						<contextPath>/${project.build.finalName}</contextPath>
 					</webApp>
 					<stopKey>CTRL+C</stopKey>
 					<stopPort>8999</stopPort>
