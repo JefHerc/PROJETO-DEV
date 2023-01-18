@@ -5,14 +5,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Listar Exames</title>
+		<title>Listar Agendamentos</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 		<link rel="stylesheet" href="css/main.css">
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="title">Exames</h1>
+			<h1 class="title">Agendamentos</h1>
 
 			<form action="procurarExame.action">
 				<div class="d-flex flex-row mb-3">
@@ -43,20 +43,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<s:iterator value="exames" var="exame">
+					<s:iterator value="agendamentos" var="agendamento">
 						<tr>
 							<s:url action="deletarExame" var="deletar">
-								<s:param name="exame.codAgendamento" value="codAgendamento" />
+								<s:param name="agendamento.codAgendamento" value="codAgendamento" />
 							</s:url>
 							<s:url action="alterarExame" var="alterar">
-								<s:param name="exame.codAgendamento" value="codAgendamento" />
+								<s:param name="agendamento.codAgendamento" value="codAgendamento" />
 							</s:url>
 							<td>${codAgendamento}</td>
 							<td>${paciente}</td>
 							<td>${exame}</td>
 							<td>${dataFormatadaBR}</td>
 							<td>
-								<s:property value="#exame.observacaoResultado" />
+								<s:property value="#agendamento.observacaoResultado" />
 							</td>
 							<td>
 								<a onclick="return confirm('Tem certeza que deseja deletar este registro?')" href="${deletar}">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
-	<endpoint name="ExameServiceImp" 
-		implementation="br.com.treino.soap.ExameServiceImp" 
+	<endpoint name="AgendamentoServiceImp" 
+		implementation="br.com.treino.soap.AgendamentoServiceImp" 
 		url-pattern="/soap" />
 </endpoints>

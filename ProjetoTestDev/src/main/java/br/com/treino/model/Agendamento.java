@@ -3,28 +3,38 @@ package br.com.treino.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
+import br.com.treino.conversor.DateAdpter;
+
 @Conversion
-public class Exame {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Agendamento {
 
 	private Integer codAgendamento;
 	private String paciente;
 	private String exame;
-	private LocalDate dataExame;
+	
+	@XmlJavaTypeAdapter(DateAdpter.class)
+	private LocalDate dataAgendamento;
+	
 	private String observacaoResultado;
 	
-	public Exame() {
+	public Agendamento() {
 		super();
 	}
 	
-	public Exame(Integer codAgendamento, String paciente, String exame, LocalDate dataExame, String observacaoResultado) {
+	public Agendamento(Integer codAgendamento, String paciente, String exame, LocalDate dataAgendamento, String observacaoResultado) {
 		super();
 		this.codAgendamento = codAgendamento;
 		this.paciente = paciente;
 		this.exame = exame;
-		this.dataExame = dataExame;
+		this.dataAgendamento = dataAgendamento;
 		this.observacaoResultado = observacaoResultado;
 	}
 	
@@ -46,13 +56,13 @@ public class Exame {
 	public void setExame(String exame) {
 		this.exame = exame;
 	}
-	public LocalDate getDataExame() {
-		return dataExame;
+	public LocalDate getdataAgendamento() {
+		return dataAgendamento;
 	}
 	
 	@TypeConversion (converter = "br.com.treino.conversor.ConversorStringToDate")
 	public void setDataExame(LocalDate dataExame) {
-		this.dataExame = dataExame;
+		this.dataAgendamento = dataExame;
 	}
 
 	public String getObservacaoResultado() {
@@ -64,17 +74,17 @@ public class Exame {
 	
 	 public String getDataFormatadaBR() {
 	    	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	        return formatador.format(getDataExame());
+	        return formatador.format(getdataAgendamento());
 	    }
 	 
 	 public String dataFormatadaENG() {
 	    	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        return formatador.format(getDataExame());
+	        return formatador.format(getdataAgendamento());
 	    }
 
 	@Override
 	public String toString() {
 		return "Exame [codAgendamento=" + codAgendamento + ", paciente=" + paciente + ", exame=" + exame
-				+ ", dataExame=" + dataExame + ", observacaoResultado=" + observacaoResultado + "]";
+				+ ", dataExame=" + dataAgendamento + ", observacaoResultado=" + observacaoResultado + "]";
 	}
 }

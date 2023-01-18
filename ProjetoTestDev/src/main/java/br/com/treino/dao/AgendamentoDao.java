@@ -8,18 +8,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.treino.model.Exame;
+import br.com.treino.model.Agendamento;
 
-public class ExameDao extends Dao {
+public class AgendamentoDao extends Dao {
 
-	public void salvarExame(Exame exame) {
-		String sql = "INSERT INTO exame (paciente, exame, obersevacao_resultado, data_exame) VALUES (?, ?, ?, ?)";
+	public void salvarExame(Agendamento agendamento) {
+		String sql = "INSERT INTO agendamento (paciente, exame, obersevacao_resultado, data_agendamento) VALUES (?, ?, ?, ?)";
 
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
-			pstm.setString(1, exame.getPaciente());
-			pstm.setString(2, exame.getExame());
-			pstm.setString(3, exame.getObservacaoResultado());
-			pstm.setObject(4, exame.getDataExame());
+			pstm.setString(1, agendamento.getPaciente());
+			pstm.setString(2, agendamento.getExame());
+			pstm.setString(3, agendamento.getObservacaoResultado());
+			pstm.setObject(4, agendamento.getdataAgendamento());
 
 			pstm.execute();
 
@@ -30,7 +30,7 @@ public class ExameDao extends Dao {
 
 	public boolean isPacienteUnico(String paciente) {
 		int cod = 0;
-		String query = "SELECT COUNT(1) FROM exame WHERE LOWER(paciente) = LOWER(?);";
+		String query = "SELECT COUNT(1) FROM agendamento WHERE LOWER(paciente) = LOWER(?);";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(query)) {
 			pstm.setString(1, paciente);
 			ResultSet rst = pstm.executeQuery();
@@ -46,7 +46,7 @@ public class ExameDao extends Dao {
 
 	public boolean isPacienteUnico(int codAgendamento, String paciente) {
 		boolean resultado = true;
-		String query = "SELECT * FROM exame WHERE LOWER(paciente) = LOWER(?);";
+		String query = "SELECT * FROM agendamento WHERE LOWER(paciente) = LOWER(?);";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(query)) {
 			pstm.setString(1, paciente);
 			ResultSet rst = pstm.executeQuery();
@@ -62,27 +62,27 @@ public class ExameDao extends Dao {
 		return resultado;
 	}
 
-	public List<Exame> listarExames() {
-		List<Exame> exames = new ArrayList<>();
-		String sql = "SELECT * FROM exame ORDER BY paciente, exame";
+	public List<Agendamento> listarAgendamentos() {
+		List<Agendamento> agendamentos = new ArrayList<>();
+		String sql = "SELECT * FROM agendamento ORDER BY paciente, exame";
 
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			ResultSet rst = pstm.executeQuery();
 			while (rst.next()) {
-				exames.add(new Exame(rst.getInt(1), rst.getString(2), rst.getString(3),
+				agendamentos.add(new Agendamento(rst.getInt(1), rst.getString(2), rst.getString(3),
 						rst.getObject(4, LocalDate.class), rst.getString(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return exames;
+		return agendamentos;
 	}
 
-	public Exame carregarDadosExame(int codExame) {
-		String sql = "SELECT * FROM exame WHERE cod_agendamento = ?";
-		Exame exame = null;
+	public Agendamento carregarDadosExame(int codAgendamento) {
+		String sql = "SELECT * FROM agendamento WHERE cod_agendamento = ?";
+		Agendamento exame = null;
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
-			pstm.setInt(1, codExame);
+			pstm.setInt(1, codAgendamento);
 			ResultSet rst = pstm.executeQuery();
 			if (rst.next()) {
 				int cod = rst.getInt("cod_agendamento");
@@ -90,7 +90,7 @@ public class ExameDao extends Dao {
 				String nomeExame = rst.getString("exame");
 				LocalDate exameData = rst.getObject("data_exame", LocalDate.class);
 				String obs = rst.getString("obersevacao_resultado");
-				exame = new Exame(cod, paciente, nomeExame, exameData, obs);
+				exame = new Agendamento(cod, paciente, nomeExame, exameData, obs);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,10 +98,10 @@ public class ExameDao extends Dao {
 		return exame;
 	}
 
-	public void excluirExame(int codExame) {
-		String sql = "DELETE FROM exame WHERE cod_agendamento = ?";
+	public void excluirExame(int codAgendamento) {
+		String sql = "DELETE FROM agendamento WHERE cod_agendamento = ?";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
-			pstm.setInt(1, codExame);
+			pstm.setInt(1, codAgendamento);
 
 			boolean isDeleted = pstm.execute();
 			if (!isDeleted)
@@ -112,38 +112,38 @@ public class ExameDao extends Dao {
 		}
 	}
 
-	public void alterarExame(Exame exame) {
-		String sql = "UPDATE exame SET paciente = ?, exame = ?, data_exame = ?, obersevacao_resultado = ? WHERE cod_agendamento = ?";
+	public void alterarExame(Agendamento agendamento) {
+		String sql = "UPDATE agendamento SET paciente = ?, exame = ?, data_agendamento = ?, obersevacao_resultado = ? WHERE cod_agendamento = ?";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
-			pstm.setString(1, exame.getPaciente());
-			pstm.setString(2, exame.getExame());
-			pstm.setObject(3, exame.getDataExame());
-			pstm.setString(4, exame.getObservacaoResultado());
-			pstm.setInt(5, exame.getCodAgendamento());
+			pstm.setString(1, agendamento.getPaciente());
+			pstm.setString(2, agendamento.getExame());
+			pstm.setObject(3, agendamento.getdataAgendamento());
+			pstm.setString(4, agendamento.getObservacaoResultado());
+			pstm.setInt(5, agendamento.getCodAgendamento());
 			boolean isUpdated = pstm.execute();
 			if (!isUpdated)
-				throw new Exception("Não foi possível deletar o agendamento");
+				throw new Exception("Não foi possível alterar o agendamento");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Exame> pesquisarExames(String parametro) {
-		List<Exame> exames = new ArrayList<>();
-		String query = "SELECT * FROM exame WHERE LOWER(paciente) LIKE LOWER(?) ORDER BY paciente";
+	public List<Agendamento> pesquisarAgendamentos(String parametro) {
+		List<Agendamento> agendamentos = new ArrayList<>();
+		String query = "SELECT * FROM agendamento WHERE LOWER(paciente) LIKE LOWER(?) ORDER BY paciente";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(query)) {
 			pstm.setString(1, "%" + parametro + "%");
 			pstm.execute();
 			ResultSet rst = pstm.getResultSet();
 
 			while (rst.next()) {
-				exames.add(new Exame(rst.getInt(1), rst.getString(2), rst.getString(3),
+				agendamentos.add(new Agendamento(rst.getInt(1), rst.getString(2), rst.getString(3),
 						rst.getObject(4, LocalDate.class), rst.getString(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return exames;
+		return agendamentos;
 	}
 
 }

@@ -3,20 +3,19 @@ package br.com.treino.business;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.treino.dao.ExameDao;
-import br.com.treino.model.Exame;
+import br.com.treino.dao.AgendamentoDao;
+import br.com.treino.model.Agendamento;
 
-public class ExameBusiness {
+public class AgendamentoBusiness {
 
-	private ExameDao dao;
+	private AgendamentoDao dao;
 
-	public ExameBusiness() {
-		dao = new ExameDao();
+	public AgendamentoBusiness() {
+		dao = new AgendamentoDao();
 	}
 
-	public void salvarAgendamento(Exame exame) {
-		try {
-
+	public void salvarAgendamento(Agendamento exame) throws Exception {
+		
 			validarData(exame);
 
 			if (exame.getCodAgendamento() == null) {
@@ -31,31 +30,27 @@ public class ExameBusiness {
 				dao.alterarExame(exame);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
-	public List<Exame> listarExames() {
-		return dao.listarExames();
+	public List<Agendamento> listarExames() {
+		return dao.listarAgendamentos();
 	}
 
 	public void excluirExame(int codExame) {
 		dao.excluirExame(codExame);
 	}
 
-	public Exame carregarDados(int codExame) {
+	public Agendamento carregarDados(int codExame) {
 		return dao.carregarDadosExame(codExame);
 	}
 
-	public List<Exame> pesquisar(String parametro) {
-		return dao.pesquisarExames(parametro);
+	public List<Agendamento> pesquisar(String parametro) {
+		return dao.pesquisarAgendamentos(parametro);
 	}
 
-	public boolean validarData(Exame exame) throws Exception {
+	public boolean validarData(Agendamento agendamento) throws Exception {
 		LocalDate dataAtual = LocalDate.now();
-		if (exame.getDataExame().isAfter(dataAtual)) {
+		if (agendamento.getdataAgendamento().isAfter(dataAtual)) {
 			return true;
 		} else {
 			throw new Exception("DATA DEVE SER MAIOR");
