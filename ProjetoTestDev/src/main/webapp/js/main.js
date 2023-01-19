@@ -30,8 +30,6 @@ function compararDatas() {
     
     var infoInserida = $('#data-agendamento').val();
     var data = Date.parse(infoInserida);
-    console.log('infoInserida' + infoInserida);
-    console.log('convertida ' + data);
     var hoje = new Date();
     if (isNaN(data) || data < hoje.getTime()) {
         $('#data-agendamento').addClass("is-invalid");
@@ -41,4 +39,14 @@ function compararDatas() {
 function confirmacaoDeletar(){
     confirm('Deseja realmente deletar este registro?');
 }
+
+$('.title').on('click', function(){
+	var result = $('tbody');
+	console.log(result)
+	if (result != '') {
+		$('img').style.visibility = 'visible';
+	} else {
+		$('img').style.visibility = 'hidden';
+	}
+})
   

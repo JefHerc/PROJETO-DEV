@@ -6,15 +6,25 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Listar Agendamentos</title>
+				<link rel="stylesheet" href="css/main.css">
+		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-		<link rel="stylesheet" href="css/main.css">
+		<style type="text/css">
+			.center {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 50%;
+				visibility: hidden;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
 			<h1 class="title">Agendamentos</h1>
 
-			<form action="procurarAgendamento.action">
+			<form action="procurarAgendamento.action" method="post">
 				<div class="d-flex flex-row mb-3">
 					<div class="p-2">
 						<input placeholder="Paciente" type="text" class="form-control" name="parametro" />
@@ -42,7 +52,7 @@
 						<th colspan="2">Ações</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="resultados">
 					<s:iterator value="agendamentos" var="agendamento">
 						<tr>
 							<s:url action="deletarAgendamento" var="deletar">
@@ -72,6 +82,7 @@
 					</s:iterator>
 				</tbody>
 			</table>
+			<img id="noResult" class="center" alt="Sem-resultados" src="imagens/noResult.jpg" >
 		</div>
 	</body>
 </html>

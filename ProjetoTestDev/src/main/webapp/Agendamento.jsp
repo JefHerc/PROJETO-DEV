@@ -28,7 +28,7 @@
 				<label hidden="true" id="erro" ><s:actionerror /></label>
 			
 
-			<form action="salvarAgendamento.action" onsubmit="return validarForm()" class="needs-validation" novalidate>
+			<form action="salvarAgendamento.action" onsubmit="return validarForm()" class="needs-validation" novalidate method="post">
 				<s:if test="agendamento.codAgendamento != null">
 					<div class="mb-3">
 						<label class="form-label">Código agendamento</label>
