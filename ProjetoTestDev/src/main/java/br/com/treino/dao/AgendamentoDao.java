@@ -12,14 +12,14 @@ import br.com.treino.model.Agendamento;
 
 public class AgendamentoDao extends Dao {
 
-	public void salvarExame(Agendamento agendamento) {
+	public void salvarAgendamento(Agendamento agendamento) {
 		String sql = "INSERT INTO agendamento (paciente, exame, obersevacao_resultado, data_agendamento) VALUES (?, ?, ?, ?)";
 
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			pstm.setString(1, agendamento.getPaciente());
 			pstm.setString(2, agendamento.getExame());
 			pstm.setString(3, agendamento.getObservacaoResultado());
-			pstm.setObject(4, agendamento.getdataAgendamento());
+			pstm.setObject(4, agendamento.getDataAgendamento());
 
 			pstm.execute();
 
@@ -78,27 +78,27 @@ public class AgendamentoDao extends Dao {
 		return agendamentos;
 	}
 
-	public Agendamento carregarDadosExame(int codAgendamento) {
+	public Agendamento carregarDadosAgendamento(int codAgendamento) {
 		String sql = "SELECT * FROM agendamento WHERE cod_agendamento = ?";
-		Agendamento exame = null;
+		Agendamento agendamento = null;
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			pstm.setInt(1, codAgendamento);
 			ResultSet rst = pstm.executeQuery();
 			if (rst.next()) {
 				int cod = rst.getInt("cod_agendamento");
 				String paciente = rst.getString("paciente");
-				String nomeExame = rst.getString("exame");
-				LocalDate exameData = rst.getObject("data_exame", LocalDate.class);
+				String exame = rst.getString("exame");
+				LocalDate dataAgendamento = rst.getObject("data_agendamento", LocalDate.class);
 				String obs = rst.getString("obersevacao_resultado");
-				exame = new Agendamento(cod, paciente, nomeExame, exameData, obs);
+				agendamento = new Agendamento(cod, paciente, exame, dataAgendamento, obs);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return exame;
+		return agendamento;
 	}
 
-	public void excluirExame(int codAgendamento) {
+	public void excluirAgendamento(int codAgendamento) {
 		String sql = "DELETE FROM agendamento WHERE cod_agendamento = ?";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			pstm.setInt(1, codAgendamento);
@@ -112,12 +112,12 @@ public class AgendamentoDao extends Dao {
 		}
 	}
 
-	public void alterarExame(Agendamento agendamento) {
+	public void alterarAgendamento(Agendamento agendamento) {
 		String sql = "UPDATE agendamento SET paciente = ?, exame = ?, data_agendamento = ?, obersevacao_resultado = ? WHERE cod_agendamento = ?";
 		try (Connection con = getConexao(); PreparedStatement pstm = con.prepareStatement(sql)) {
 			pstm.setString(1, agendamento.getPaciente());
 			pstm.setString(2, agendamento.getExame());
-			pstm.setObject(3, agendamento.getdataAgendamento());
+			pstm.setObject(3, agendamento.getDataAgendamento());
 			pstm.setString(4, agendamento.getObservacaoResultado());
 			pstm.setInt(5, agendamento.getCodAgendamento());
 			boolean isUpdated = pstm.execute();

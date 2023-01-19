@@ -14,20 +14,20 @@ public class AgendamentoBusiness {
 		dao = new AgendamentoDao();
 	}
 
-	public void salvarAgendamento(Agendamento exame) throws Exception {
+	public void salvarAgendamento(Agendamento agendamento) throws Exception {
 		
-			validarData(exame);
+			validarData(agendamento);
 
-			if (exame.getCodAgendamento() == null) {
-				boolean pacienteUnico = dao.isPacienteUnico(exame.getPaciente());
+			if (agendamento.getCodAgendamento() == null) {
+				boolean pacienteUnico = dao.isPacienteUnico(agendamento.getPaciente());
 				if (!pacienteUnico)
 					throw new Exception("Este paciente já foi cadastrado");
-				dao.salvarExame(exame);
+				dao.salvarAgendamento(agendamento);
 			} else {
-				boolean pacienteUnico = dao.isPacienteUnico(exame.getCodAgendamento(), exame.getPaciente());
+				boolean pacienteUnico = dao.isPacienteUnico(agendamento.getCodAgendamento(), agendamento.getPaciente());
 				if (!pacienteUnico)
 					throw new Exception("Não é possível alterar o nome do paciente para um nome já cadastrado");
-				dao.alterarExame(exame);
+				dao.alterarAgendamento(agendamento);
 			}
 
 	}
@@ -36,12 +36,12 @@ public class AgendamentoBusiness {
 		return dao.listarAgendamentos();
 	}
 
-	public void excluirExame(int codExame) {
-		dao.excluirExame(codExame);
+	public void excluirExame(int codAgendamento) {
+		dao.excluirAgendamento(codAgendamento);
 	}
 
-	public Agendamento carregarDados(int codExame) {
-		return dao.carregarDadosExame(codExame);
+	public Agendamento carregarDados(int codAgendamento) {
+		return dao.carregarDadosAgendamento(codAgendamento);
 	}
 
 	public List<Agendamento> pesquisar(String parametro) {
@@ -50,7 +50,7 @@ public class AgendamentoBusiness {
 
 	public boolean validarData(Agendamento agendamento) throws Exception {
 		LocalDate dataAtual = LocalDate.now();
-		if (agendamento.getdataAgendamento().isAfter(dataAtual)) {
+		if (agendamento.getDataAgendamento().isAfter(dataAtual)) {
 			return true;
 		} else {
 			throw new Exception("DATA DEVE SER MAIOR");

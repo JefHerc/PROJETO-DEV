@@ -8,13 +8,13 @@
 	<constant name="struts.devMode" value="true" />
 
 		<package name="DEV" extends="struts-default" strict-method-invocation="false">
-			<action name="*Exame" class="br.com.treino.action.AgendamentoAction" method="{1}">
-				<result name="listar">listaExames.jsp</result>
-				<result name="alterar">exame.jsp</result>
-				<result name="novo">exame.jsp</result>
-				<result name="pesquisar">listaExames.jsp</result>
-				<result name="success" type="redirectAction">listarExame</result>
-				<result name="input" >exame.jsp</result>
+			<action name="*Agendamento" class="br.com.treino.action.AgendamentoAction" method="{1}">
+				<result name="listar">ListaAgendamentos.jsp</result>
+				<result name="alterar">Agendamento.jsp</result>
+				<result name="novo">Agendamento.jsp</result>
+				<result name="pesquisar">ListaAgendamentos.jsp</result>
+				<result name="success" type="redirectAction">listarAgendamento</result>
+				<result name="input" >Agendamento.jsp</result>
 			</action>
 			
 		</package>

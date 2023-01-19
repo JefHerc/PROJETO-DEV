@@ -25,11 +25,12 @@ public class Agendamento {
 	
 	private String observacaoResultado;
 	
-	public Agendamento() {
+	 public Agendamento() {
 		super();
 	}
-	
-	public Agendamento(Integer codAgendamento, String paciente, String exame, LocalDate dataAgendamento, String observacaoResultado) {
+
+	public Agendamento(Integer codAgendamento, String paciente, String exame, LocalDate dataAgendamento,
+			String observacaoResultado) {
 		super();
 		this.codAgendamento = codAgendamento;
 		this.paciente = paciente;
@@ -37,54 +38,63 @@ public class Agendamento {
 		this.dataAgendamento = dataAgendamento;
 		this.observacaoResultado = observacaoResultado;
 	}
-	
+
 	public Integer getCodAgendamento() {
 		return codAgendamento;
 	}
+
 	public void setCodAgendamento(Integer codAgendamento) {
 		this.codAgendamento = codAgendamento;
 	}
+
 	public String getPaciente() {
 		return paciente;
 	}
+
 	public void setPaciente(String paciente) {
 		this.paciente = paciente;
 	}
+
 	public String getExame() {
 		return exame;
 	}
+
 	public void setExame(String exame) {
 		this.exame = exame;
 	}
-	public LocalDate getdataAgendamento() {
+
+	public LocalDate getDataAgendamento() {
 		return dataAgendamento;
 	}
-	
+
 	@TypeConversion (converter = "br.com.treino.conversor.ConversorStringToDate")
-	public void setDataExame(LocalDate dataExame) {
-		this.dataAgendamento = dataExame;
+	public void setDataAgendamento(LocalDate dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
 	}
 
 	public String getObservacaoResultado() {
 		return observacaoResultado;
 	}
+
 	public void setObservacaoResultado(String observacaoResultado) {
 		this.observacaoResultado = observacaoResultado;
 	}
-	
-	 public String getDataFormatadaBR() {
+
+	public String getDataFormatadaBR() {
 	    	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	        return formatador.format(getdataAgendamento());
+	        return formatador.format(getDataAgendamento());
 	    }
 	 
 	 public String dataFormatadaENG() {
 	    	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        return formatador.format(getdataAgendamento());
+	        return formatador.format(getDataAgendamento());
 	    }
 
 	@Override
 	public String toString() {
-		return "Exame [codAgendamento=" + codAgendamento + ", paciente=" + paciente + ", exame=" + exame
-				+ ", dataExame=" + dataAgendamento + ", observacaoResultado=" + observacaoResultado + "]";
+		return "Agendamento [codAgendamento=" + codAgendamento + ", paciente=" + paciente + ", exame=" + exame
+				+ ", dataAgendamento=" + dataAgendamento + ", observacaoResultado=" + observacaoResultado + "]";
 	}
+
+	
 }

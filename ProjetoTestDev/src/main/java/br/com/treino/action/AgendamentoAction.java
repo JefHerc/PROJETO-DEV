@@ -33,7 +33,9 @@ public class AgendamentoAction extends ActionSupport {
 	}
 	
 	public String alterar() {
+		int cod = agendamento.getCodAgendamento();
 		this.agendamento = agendamentoBusiness.carregarDados(agendamento.getCodAgendamento());
+		System.out.println(agendamento);
 		return "alterar";
 	}
 	
@@ -51,7 +53,15 @@ public class AgendamentoAction extends ActionSupport {
 		agendamentos.addAll(agendamentoBusiness.pesquisar(getParametro()));
 		return "pesquisar";
 	}
-	
+
+	public AgendamentoBusiness getAgendamentoBusiness() {
+		return agendamentoBusiness;
+	}
+
+	public void setAgendamentoBusiness(AgendamentoBusiness agendamentoBusiness) {
+		this.agendamentoBusiness = agendamentoBusiness;
+	}
+
 	public Agendamento getAgendamento() {
 		return agendamento;
 	}
@@ -74,7 +84,5 @@ public class AgendamentoAction extends ActionSupport {
 
 	public void setParametro(String parametro) {
 		this.parametro = parametro;
-	}
-	
-	
+	}	
 }

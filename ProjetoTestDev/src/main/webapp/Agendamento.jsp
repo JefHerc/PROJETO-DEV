@@ -28,7 +28,7 @@
 				<label hidden="true" id="erro" ><s:actionerror /></label>
 			
 
-			<form action="salvarExame.action" onsubmit="return validarForm()" class="needs-validation" novalidate>
+			<form action="salvarAgendamento.action" onsubmit="return validarForm()" class="needs-validation" novalidate>
 				<s:if test="agendamento.codAgendamento != null">
 					<div class="mb-3">
 						<label class="form-label">Código agendamento</label>
@@ -44,7 +44,7 @@
 				</div>
 				<div class="mb-3">
 					<label class="form-label">Exame</label>
-					<s:textfield id="" maxlength="50" class="form-control to-check" name="agendamento.exame" />
+					<s:textfield id="exame" maxlength="50" class="form-control to-check" name="agendamento.exame" />
 					<div class="invalid-feedback">
 						Favor preencher o nome do exame.
 					</div>
@@ -67,7 +67,7 @@
 					<label class="form-label">Observação / Resultado:</label>
 					<s:textarea maxlength="250" class="form-control" rows="10" cols="30" name="agendamento.observacaoResultado" />
 				</div>
-				<s:url action="listarExame.action" var="voltar"/>
+				<s:url action="listarAgendamento.action" var="voltar"/>
 				<a class="btn btn-primary" href="${voltar}">
 					<i class="bi bi-arrow-return-left"></i> Agendamentos
 				</a>

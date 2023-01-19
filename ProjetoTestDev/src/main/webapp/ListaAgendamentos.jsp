@@ -14,7 +14,7 @@
 		<div class="container">
 			<h1 class="title">Agendamentos</h1>
 
-			<form action="procurarExame.action">
+			<form action="procurarAgendamento.action">
 				<div class="d-flex flex-row mb-3">
 					<div class="p-2">
 						<input placeholder="Paciente" type="text" class="form-control" name="parametro" />
@@ -25,7 +25,7 @@
 				</div>
 			</form>
 			<div class="mb-3">
-				<s:url action="incluirExame.action" var="incluir" />
+				<s:url action="incluirAgendamento.action" var="incluir" />
 				<a class="btn btn-primary" href="${incluir}">
 					<i class="bi bi-file-earmark-plus-fill"></i>
 					<span> Incluir</span>
@@ -45,10 +45,10 @@
 				<tbody>
 					<s:iterator value="agendamentos" var="agendamento">
 						<tr>
-							<s:url action="deletarExame" var="deletar">
+							<s:url action="deletarAgendamento" var="deletar">
 								<s:param name="agendamento.codAgendamento" value="codAgendamento" />
 							</s:url>
-							<s:url action="alterarExame" var="alterar">
+							<s:url action="alterarAgendamento" var="alterar">
 								<s:param name="agendamento.codAgendamento" value="codAgendamento" />
 							</s:url>
 							<td>${codAgendamento}</td>
