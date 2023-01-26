@@ -7,6 +7,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import br.com.treino.business.AgendamentoBusiness;
+import br.com.treino.exception.BusinessException;
 import br.com.treino.model.Agendamento;
 
 @WebService(endpointInterface = "br.com.treino.soap.AgendamentoService")
@@ -16,13 +17,8 @@ public class AgendamentoServiceImp implements AgendamentoService {
 
 	@Override
 	public boolean deletarAgendamento(int id) {
-		try {
 			agendamentoBusiness.excluirExame(id);
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	@Override
@@ -35,35 +31,24 @@ public class AgendamentoServiceImp implements AgendamentoService {
 	@Override
 	public List<Agendamento> getAgendamentos() {
 		List<Agendamento> exames = new ArrayList<>();
-		try {
-			exames.addAll(agendamentoBusiness.listarExames());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		exames.addAll(agendamentoBusiness.listarExames());
 		return exames;
 	}
 
 	@Override
-	public boolean alterarAgendamento(Agendamento agendamento) {
-		try {
+	public boolean alterarAgendamento(Agendamento agendamento) throws BusinessException {
+		
 			agendamentoBusiness.salvarAgendamento(agendamento);
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	@Override
 	@WebMethod(operationName = "CadastraNovoAgendamento")
-	public boolean setAgendamento(Agendamento agendamento) {
-		try {
+	public boolean setAgendamento(Agendamento agendamento) throws BusinessException {
+		
 			agendamentoBusiness.salvarAgendamento(agendamento);
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		
 	}
 
 }

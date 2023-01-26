@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import br.com.treino.dao.AgendamentoDao;
+import br.com.treino.exception.BusinessException;
 import br.com.treino.model.Agendamento;
 
 public class AgendamentoBusiness {
@@ -14,21 +15,23 @@ public class AgendamentoBusiness {
 		dao = new AgendamentoDao();
 	}
 
-	public void salvarAgendamento(Agendamento agendamento) throws Exception {
-		
-			validarData(agendamento);
+	public void salvarAgendamento(Agendamento agendamento) throws BusinessException {
 
-			if (agendamento.getCodAgendamento() == null) {
-				boolean pacienteUnico = dao.isPacienteUnico(agendamento.getPaciente());
-				if (!pacienteUnico)
-					throw new Exception("Este paciente j√° foi cadastrado");
-				dao.salvarAgendamento(agendamento);
-			} else {
-				boolean pacienteUnico = dao.isPacienteUnico(agendamento.getCodAgendamento(), agendamento.getPaciente());
-				if (!pacienteUnico)
-					throw new Exception("N√£o √© poss√≠vel alterar o nome do paciente para um nome j√° cadastrado");
-				dao.alterarAgendamento(agendamento);
-			}
+//		validarData(agendamento);
+//		validarExame(agendamento);
+//		validarPaciente(agendamento);
+
+		if (agendamento.getCodAgendamento() == null) {
+			boolean pacienteUnico = dao.isPacienteUnico(agendamento.getPaciente());
+			if (!pacienteUnico)
+				throw new BusinessException("Este paciente j· possuÌ agendamento");
+			dao.salvarAgendamento(agendamento);
+		} else {
+			boolean pacienteUnico = dao.isPacienteUnico(agendamento.getCodAgendamento(), agendamento.getPaciente());
+			if (!pacienteUnico)
+				throw new BusinessException("N„o È possÌvel alterar o nome do paciente para um com agendamento");
+			dao.alterarAgendamento(agendamento);
+		}
 
 	}
 
@@ -48,12 +51,20 @@ public class AgendamentoBusiness {
 		return dao.pesquisarAgendamentos(parametro);
 	}
 
-	public boolean validarData(Agendamento agendamento) throws Exception {
+	public void validarData(Agendamento agendamento) throws BusinessException {
 		LocalDate dataAtual = LocalDate.now();
-		if (agendamento.getDataAgendamento().isAfter(dataAtual)) {
-			return true;
-		} else {
-			throw new Exception("DATA DEVE SER MAIOR");
-		}
+		if (!agendamento.getDataAgendamento().isAfter(dataAtual))
+			throw new BusinessException("A data do agendamento deve ser posterior a atual.");
 	}
+
+	public void validarPaciente(Agendamento agendamento) throws BusinessException {
+		if (agendamento.getPaciente().trim().length() < 4)
+			throw new BusinessException("O nome do paciente deve-ser preenchido");
+	}
+
+	public void validarExame(Agendamento agendamento) throws BusinessException {
+		if (agendamento.getExame().trim().length() < 3)
+			throw new BusinessException("O nome do exame deve ser preenchido");
+	}
+
 }

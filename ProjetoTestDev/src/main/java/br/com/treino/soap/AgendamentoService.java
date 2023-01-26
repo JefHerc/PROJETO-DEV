@@ -11,6 +11,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import br.com.treino.exception.BusinessException;
 import br.com.treino.model.Agendamento;
 
 @WebService
@@ -28,8 +29,8 @@ public interface AgendamentoService {
 	List<Agendamento> getAgendamentos();
 	
 	@WebMethod
-	boolean alterarAgendamento(@WebParam (name = "Agendamento") Agendamento agendamento);
+	boolean alterarAgendamento(@WebParam (name = "Agendamento") Agendamento agendamento) throws BusinessException;
 	
 	@WebMethod (operationName = "CadastrarAgendamento")
-	boolean setAgendamento(@WebParam (name = "Agendamento") Agendamento agendamento);
+	boolean setAgendamento(@WebParam (name = "Agendamento") Agendamento agendamento) throws BusinessException;
 }

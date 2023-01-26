@@ -16,7 +16,6 @@
 				margin-left: auto;
 				margin-right: auto;
 				width: 50%;
-				visibility: hidden;
 			}
 		</style>
 	</head>
@@ -29,7 +28,7 @@
 					<div class="p-2">
 						<input placeholder="Paciente" type="text" class="form-control" name="parametro" />
 					</div>
-					<button class="btn btn-outline-secondary" type="submit" id="Pesquisar">Search 
+					<button class="btn btn-outline-secondary" type="submit" id="Pesquisar">Buscar 
 						<i class="bi bi-search"></i>
 					</button>
 				</div>
@@ -48,7 +47,7 @@
 						<th>Paciente</th>
 						<th>Exame</th>
 						<th>Data</th>
-						<th>Observação / Resultado</th>
+						<th>Observação/ Resultado</th>
 						<th colspan="2">Ações</th>
 					</tr>
 				</thead>
@@ -82,7 +81,11 @@
 					</s:iterator>
 				</tbody>
 			</table>
-			<img id="noResult" class="center" alt="Sem-resultados" src="imagens/noResult.jpg" >
+			<img id="noResult" class="center" alt="Sem-resultados" src="imagens/noResult.jpg" hidden="true">
 		</div>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/lstAg.js"></script>
+		
 	</body>
 </html>

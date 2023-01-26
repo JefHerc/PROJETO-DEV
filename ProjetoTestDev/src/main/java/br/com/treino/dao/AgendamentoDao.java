@@ -122,7 +122,7 @@ public class AgendamentoDao extends Dao {
 			pstm.setInt(5, agendamento.getCodAgendamento());
 			boolean isUpdated = pstm.execute();
 			if (!isUpdated)
-				throw new Exception("NÃ£o foi possÃ­vel alterar o agendamento");
+				throw new Exception("Não foi possível alterar o agendamento");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

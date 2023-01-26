@@ -31,7 +31,7 @@
 			<form action="salvarAgendamento.action" onsubmit="return validarForm()" class="needs-validation" novalidate method="post">
 				<s:if test="agendamento.codAgendamento != null">
 					<div class="mb-3">
-						<label class="form-label">Código agendamento</label>
+						<label class="form-label">Código Agendamento</label>
 						<s:textfield class="form-control" name="agendamento.codAgendamento" readonly="true" />
 					</div>
 				</s:if>
@@ -51,14 +51,8 @@
 				</div>
 				<div class="mb-3">
 					<label class="form-label">Data</label>
-<%-- 					<s:if test=".codAgendamento == null"> --%>
-<%-- 						<s:textfield type="date" maxlength="8" class="form-control to-check" id="data-" --%>
-<%-- 						name=".data" /> --%>
-<%-- 					</s:if> --%>
-<%-- 					<s:else> --%>
 						<s:textfield type="date" maxlength="8" class="form-control to-check" id="data-agendamento"
 						name="agendamento.dataAgendamento" value="%{agendamento.dataFormatadaENG}"/>
-<%-- 					</s:else> --%>
 					<div class="invalid-feedback">
 						A data deve ser maior que a data atual.
 					</div>

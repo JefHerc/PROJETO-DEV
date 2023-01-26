@@ -84,5 +84,7 @@ public class AgendamentoAction extends ActionSupport {
 
 	public void setParametro(String parametro) {
 		this.parametro = parametro;
-	}	
+	}
+
+	
 }
